@@ -227,17 +227,11 @@ bool CrossPointSettings::loadFromBinaryFile() {
   return true;
 }
 
-<<<<<<< HEAD
-float CrossPointSettings::getReaderLineCompression() const {
-  switch (fontFamily) {
-    case NOTOSERIF:
-=======
 float CrossPointSettings::getReaderLineCompression() const { return static_cast<float>(lineSpacingPt) / 100.0f; }
 
 void CrossPointSettings::applyLegacyConvertLineCompression(CrossPointSettings& settings) {
   switch (static_cast<CrossPointSettings::FONT_FAMILY>(settings.fontFamily)) {
     case CrossPointSettings::BOOKERLY:
->>>>>>> 9340de8 (make line spacing config numeric)
     default:
       switch (static_cast<CrossPointSettings::LINE_COMPRESSION>(settings.lineSpacing)) {
         case CrossPointSettings::TIGHT:
@@ -300,49 +294,19 @@ int CrossPointSettings::getRefreshFrequency() const {
       return 15;
     case REFRESH_30:
       return 30;
-    case REFRESH_DISABLED:
-      return 9999;
   }
 }
 
 int CrossPointSettings::getReaderFontId() const {
-  switch (fontFamily) {
-    case NOTOSERIF:
+  switch (fontSize) {
+    case SMALL:
+      return BOOKERLY_18_FONT_ID;
+    case MEDIUM:
     default:
-      switch (fontSize) {
-        case SMALL:
-          return NOTOSERIF_12_FONT_ID;
-        case MEDIUM:
-        default:
-          return NOTOSERIF_14_FONT_ID;
-        case LARGE:
-          return NOTOSERIF_16_FONT_ID;
-        case EXTRA_LARGE:
-          return NOTOSERIF_18_FONT_ID;
-      }
-    case NOTOSANS:
-      switch (fontSize) {
-        case SMALL:
-          return NOTOSANS_12_FONT_ID;
-        case MEDIUM:
-        default:
-          return NOTOSANS_14_FONT_ID;
-        case LARGE:
-          return NOTOSANS_16_FONT_ID;
-        case EXTRA_LARGE:
-          return NOTOSANS_18_FONT_ID;
-      }
-    case OPENDYSLEXIC:
-      switch (fontSize) {
-        case SMALL:
-          return OPENDYSLEXIC_8_FONT_ID;
-        case MEDIUM:
-        default:
-          return OPENDYSLEXIC_10_FONT_ID;
-        case LARGE:
-          return OPENDYSLEXIC_12_FONT_ID;
-        case EXTRA_LARGE:
-          return OPENDYSLEXIC_14_FONT_ID;
-      }
+      return BOOKERLY_20_FONT_ID;
+    case LARGE:
+      return BOOKERLY_22_FONT_ID;
+    case EXTRA_LARGE:
+      return BOOKERLY_24_FONT_ID;
   }
 }

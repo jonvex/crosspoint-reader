@@ -259,8 +259,8 @@ bool CrossPointSettings::loadFromBinaryFile() {
 float CrossPointSettings::getReaderLineCompression() const { return static_cast<float>(lineSpacingPt) / 100.0f; }
 
 void CrossPointSettings::applyLegacyConvertLineCompression(CrossPointSettings& settings) {
-  switch (settings.fontFamily) {
-    case NOTOSERIF:
+  switch (static_cast<CrossPointSettings::FONT_FAMILY>(settings.fontFamily)) {
+    case CrossPointSettings::BOOKERLY:
     default:
       switch (settings.lineSpacing) {
         case TIGHT:
@@ -329,43 +329,15 @@ int CrossPointSettings::getRefreshFrequency() const {
 }
 
 int CrossPointSettings::getReaderFontId() const {
-  switch (fontFamily) {
-    case NOTOSERIF:
+  switch (fontSize) {
+    case SMALL:
+      return BOOKERLY_S_FONT_ID;
+    case MEDIUM:
     default:
-      switch (fontSize) {
-        case SMALL:
-          return NOTOSERIF_12_FONT_ID;
-        case MEDIUM:
-        default:
-          return NOTOSERIF_14_FONT_ID;
-        case LARGE:
-          return NOTOSERIF_16_FONT_ID;
-        case EXTRA_LARGE:
-          return NOTOSERIF_18_FONT_ID;
-      }
-    case NOTOSANS:
-      switch (fontSize) {
-        case SMALL:
-          return NOTOSANS_12_FONT_ID;
-        case MEDIUM:
-        default:
-          return NOTOSANS_14_FONT_ID;
-        case LARGE:
-          return NOTOSANS_16_FONT_ID;
-        case EXTRA_LARGE:
-          return NOTOSANS_18_FONT_ID;
-      }
-    case OPENDYSLEXIC:
-      switch (fontSize) {
-        case SMALL:
-          return OPENDYSLEXIC_8_FONT_ID;
-        case MEDIUM:
-        default:
-          return OPENDYSLEXIC_10_FONT_ID;
-        case LARGE:
-          return OPENDYSLEXIC_12_FONT_ID;
-        case EXTRA_LARGE:
-          return OPENDYSLEXIC_14_FONT_ID;
-      }
+      return BOOKERLY_M_FONT_ID;
+    case LARGE:
+      return BOOKERLY_L_FONT_ID;
+    case EXTRA_LARGE:
+      return BOOKERLY_XL_FONT_ID;
   }
 }

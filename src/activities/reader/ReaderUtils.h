@@ -40,9 +40,11 @@ inline PageTurnResult detectPageTurn(const MappedInputManager& input) {
   const bool usePress = !SETTINGS.longPressChapterSkip;
   const bool tiltNext = SETTINGS.tiltPageTurn && halTiltSensor.wasTiltedForward();
   const bool tiltPrev = SETTINGS.tiltPageTurn && halTiltSensor.wasTiltedBack();
-  const bool prev = tiltPrev || (usePress ? (input.wasPressed(MappedInputManager::Button::PageBack) ||
+  const bool powerBack = SETTINGS.shortPwrBtn == CrossPointSettings::SHORT_PWRBTN::PAGE_BACK &&
+                         input.wasReleased(MappedInputManager::Button::Power);
+  const bool prev = tiltPrev || (usePress ? (input.wasPressed(MappedInputManager::Button::PageBack) || powerBack ||
                                              input.wasPressed(MappedInputManager::Button::Left))
-                                          : (input.wasReleased(MappedInputManager::Button::PageBack) ||
+                                          : (input.wasReleased(MappedInputManager::Button::PageBack) || powerBack ||
                                              input.wasReleased(MappedInputManager::Button::Left)));
   const bool powerTurn = SETTINGS.shortPwrBtn == CrossPointSettings::SHORT_PWRBTN::PAGE_TURN &&
                          input.wasReleased(MappedInputManager::Button::Power);

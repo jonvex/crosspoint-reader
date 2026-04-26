@@ -241,6 +241,7 @@ class CrossPointSettings {
   // lineSpacing retained for migration only. lineSpacingPt is used now.
   uint8_t lineSpacing = NORMAL;
   uint8_t lineSpacingPt = 100;
+  uint8_t statusBarMargin = 0;
   uint8_t paragraphAlignment = JUSTIFIED;
   // Auto-sleep timeout setting (default 10 minutes). Legacy sleepTimeout enum values are migration-only.
   uint8_t sleepTimeoutMinutes = 10;

@@ -18,7 +18,7 @@ constexpr SideLayoutMap kSideLayouts[] = {
 }  // namespace
 
 bool MappedInputManager::mapButton(const Button button, bool (HalGPIO::*fn)(uint8_t) const) const {
-  const auto sideLayout = static_cast<CrossPointSettings::SIDE_BUTTON_LAYOUT>(SETTINGS.sideButtonLayout);
+  const auto sideLayout = static_cast<CrossPointSettings::SIDE_BUTTON_LAYOUT>(SETTINGS.sideButtonLayout % 2);
   const auto& side = kSideLayouts[sideLayout];
 
   switch (button) {
@@ -44,9 +44,15 @@ bool MappedInputManager::mapButton(const Button button, bool (HalGPIO::*fn)(uint
       // Power button bypasses remapping.
       return (gpio.*fn)(HalGPIO::BTN_POWER);
     case Button::PageBack:
+      if (SETTINGS.sideButtonLayout == 2) {
+        return false;
+      }
       // Reader page navigation uses side buttons and can be swapped via settings.
       return (gpio.*fn)(side.pageBack);
     case Button::PageForward:
+      if (SETTINGS.sideButtonLayout == 2) {
+        return (gpio.*fn)(HalGPIO::BTN_UP) || (gpio.*fn)(HalGPIO::BTN_DOWN);
+      }
       // Reader page navigation uses side buttons and can be swapped via settings.
       return (gpio.*fn)(side.pageForward);
   }

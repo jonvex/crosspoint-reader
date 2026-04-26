@@ -41,14 +41,14 @@ inline const std::vector<SettingInfo>& getSettingsList() {
 
         // --- Reader ---
         SettingInfo::Enum(StrId::STR_FONT_FAMILY, &CrossPointSettings::fontFamily,
-                          {StrId::STR_NOTO_SERIF, StrId::STR_NOTO_SANS, StrId::STR_OPEN_DYSLEXIC}, "fontFamily",
+                          {StrId::STR_BOOKERLY, StrId::STR_NOTO_SANS, StrId::STR_OPEN_DYSLEXIC}, "fontFamily",
                           StrId::STR_CAT_READER),
         SettingInfo::Enum(StrId::STR_FONT_SIZE, &CrossPointSettings::fontSize,
                           {StrId::STR_SMALL, StrId::STR_MEDIUM, StrId::STR_LARGE, StrId::STR_X_LARGE}, "fontSize",
                           StrId::STR_CAT_READER),
-        SettingInfo::Value(StrId::STR_LINE_SPACING, &CrossPointSettings::lineSpacingPt, {75, 125, 5}, "lineSpacingPt",
+        SettingInfo::Value(StrId::STR_LINE_SPACING, &CrossPointSettings::lineSpacingPt, {70, 100, 1}, "lineSpacingPt",
                            StrId::STR_CAT_READER),
-        SettingInfo::Value(StrId::STR_SCREEN_MARGIN, &CrossPointSettings::screenMargin, {5, 40, 5}, "screenMargin",
+        SettingInfo::Value(StrId::STR_SCREEN_MARGIN, &CrossPointSettings::screenMargin, {0, 10, 1}, "screenMargin",
                            StrId::STR_CAT_READER),
         SettingInfo::Enum(StrId::STR_PARA_ALIGNMENT, &CrossPointSettings::paragraphAlignment,
                           {StrId::STR_JUSTIFY, StrId::STR_ALIGN_LEFT, StrId::STR_CENTER, StrId::STR_ALIGN_RIGHT,
@@ -70,12 +70,14 @@ inline const std::vector<SettingInfo>& getSettingsList() {
                           "imageRendering", StrId::STR_CAT_READER),
         // --- Controls ---
         SettingInfo::Enum(StrId::STR_SIDE_BTN_LAYOUT, &CrossPointSettings::sideButtonLayout,
-                          {StrId::STR_PREV_NEXT, StrId::STR_NEXT_PREV}, "sideButtonLayout", StrId::STR_CAT_CONTROLS),
+                          {StrId::STR_PREV_NEXT, StrId::STR_NEXT_PREV, StrId::STR_NEXT_NEXT}, "sideButtonLayout",
+                          StrId::STR_CAT_CONTROLS),
         SettingInfo::Toggle(StrId::STR_LONG_PRESS_SKIP, &CrossPointSettings::longPressChapterSkip,
                             "longPressChapterSkip", StrId::STR_CAT_CONTROLS),
-        SettingInfo::Enum(StrId::STR_SHORT_PWR_BTN, &CrossPointSettings::shortPwrBtn,
-                          {StrId::STR_IGNORE, StrId::STR_SLEEP, StrId::STR_PAGE_TURN, StrId::STR_FORCE_REFRESH},
-                          "shortPwrBtn", StrId::STR_CAT_CONTROLS),
+        SettingInfo::Enum(
+            StrId::STR_SHORT_PWR_BTN, &CrossPointSettings::shortPwrBtn,
+            {StrId::STR_IGNORE, StrId::STR_SLEEP, StrId::STR_PAGE_TURN, StrId::STR_FORCE_REFRESH, StrId::STR_PAGE_BACK},
+            "shortPwrBtn", StrId::STR_CAT_CONTROLS),
 
         // --- System ---
         SettingInfo::Enum(StrId::STR_TIME_TO_SLEEP, &CrossPointSettings::sleepTimeout,

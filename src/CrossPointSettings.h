@@ -95,7 +95,13 @@ class CrossPointSettings {
 
   // Side button layout options
   // Default: Up = Previous, Down = Next
-  enum SIDE_BUTTON_LAYOUT { PREV_NEXT = 0, NEXT_PREV = 1, SIDE_BUTTONS_DISABLED = 2, SIDE_BUTTON_LAYOUT_COUNT };
+  enum SIDE_BUTTON_LAYOUT {
+    PREV_NEXT = 0,
+    NEXT_PREV = 1,
+    SIDE_BUTTONS_DISABLED = 2,
+    NEXT_NEXT = 3,
+    SIDE_BUTTON_LAYOUT_COUNT
+  };
 
   // Font family options (built-in fonts only; SD card fonts use sdFontFamilyName)
   enum FONT_FAMILY { NOTOSERIF = 0, NOTOSANS = 1, FONT_FAMILY_COUNT };
@@ -137,7 +143,15 @@ class CrossPointSettings {
   };
 
   // Short power button press actions
-  enum SHORT_PWRBTN { IGNORE = 0, SLEEP = 1, PAGE_TURN = 2, FORCE_REFRESH = 3, FOOTNOTES = 4, SHORT_PWRBTN_COUNT };
+  enum SHORT_PWRBTN {
+    IGNORE = 0,
+    SLEEP = 1,
+    PAGE_TURN = 2,
+    FORCE_REFRESH = 3,
+    FOOTNOTES = 4,
+    PAGE_BACK = 5,
+    SHORT_PWRBTN_COUNT
+  };
 
   // Long-press Confirm action while reading an EPUB. The setting cycles through these values.
   // Persisted in settings.json by index: any new function (e.g. dictionary, bookmark) MUST use a

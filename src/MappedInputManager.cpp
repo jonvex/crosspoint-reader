@@ -46,6 +46,7 @@ bool MappedInputManager::mapButton(const Button button, bool (HalGPIO::*fn)(uint
         case CrossPointSettings::NEXT_PREV:
           return (gpio.*fn)(HalGPIO::BTN_DOWN);
         case CrossPointSettings::SIDE_BUTTONS_DISABLED:
+        case CrossPointSettings::NEXT_NEXT:
         default:
           return false;
       }
@@ -56,6 +57,8 @@ bool MappedInputManager::mapButton(const Button button, bool (HalGPIO::*fn)(uint
           return (gpio.*fn)(HalGPIO::BTN_DOWN);
         case CrossPointSettings::NEXT_PREV:
           return (gpio.*fn)(HalGPIO::BTN_UP);
+        case CrossPointSettings::NEXT_NEXT:
+          return (gpio.*fn)(HalGPIO::BTN_UP) || (gpio.*fn)(HalGPIO::BTN_DOWN);
         case CrossPointSettings::SIDE_BUTTONS_DISABLED:
         default:
           return false;

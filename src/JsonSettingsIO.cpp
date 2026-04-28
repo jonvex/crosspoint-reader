@@ -229,6 +229,12 @@ bool JsonSettingsIO::loadSettings(CrossPointSettings& s, const char* json, bool*
     s.language = static_cast<uint8_t>(I18n::languageFromCode(doc["language"].as<const char*>()));
   }
 
+  // convert legacy line spacing setting to new numerical setting
+  if (doc["lineSpacingPt"].isNull() && !doc["lineSpacing"].isNull()) {
+    s.lineSpacing = clamp(doc["lineSpacing"], CrossPointSettings::LINE_COMPRESSION_COUNT, CrossPointSettings::NORMAL);
+    S::applyLegacyConvertLineCompression(s);
+  }
+
   LOG_DBG("CPS", "Settings loaded from file");
 
   return true;

@@ -182,7 +182,7 @@ bool CrossPointSettings::loadFromBinaryFile() {
     if (++settingsRead >= fileSettingsCount) break;
     readAndValidate(inputFile, fontSize, FONT_SIZE_COUNT);
     if (++settingsRead >= fileSettingsCount) break;
-    readAndValidate(inputFile, lineSpacing, LINE_COMPRESSION_COUNT);
+    readAndValidate(inputFile, lineSpacing, LINE_COMPRESSION_COUNT);  // legacy
     if (++settingsRead >= fileSettingsCount) break;
     readAndValidate(inputFile, paragraphAlignment, PARAGRAPH_ALIGNMENT_COUNT);
     if (++settingsRead >= fileSettingsCount) break;
@@ -248,43 +248,49 @@ bool CrossPointSettings::loadFromBinaryFile() {
     applyLegacyFrontButtonLayout(*this);
   }
 
+  // the new setting should never be written to binary because we
+  // switched to using json before this config was deprecated
+  applyLegacyConvertLineCompression(*this);
+
   LOG_DBG("CPS", "Settings loaded from binary file");
   return true;
 }
 
-float CrossPointSettings::getReaderLineCompression() const {
-  switch (fontFamily) {
+float CrossPointSettings::getReaderLineCompression() const { return static_cast<float>(lineSpacingPt) / 100.0f; }
+
+void CrossPointSettings::applyLegacyConvertLineCompression(CrossPointSettings& settings) {
+  switch (settings.fontFamily) {
     case NOTOSERIF:
     default:
-      switch (lineSpacing) {
+      switch (settings.lineSpacing) {
         case TIGHT:
-          return 0.95f;
+          settings.lineSpacingPt = 95;
+          break;
         case NORMAL:
         default:
-          return 1.0f;
+          settings.lineSpacingPt = 100;
+          break;
         case WIDE:
-          return 1.1f;
+          settings.lineSpacingPt = 110;
+          break;
       }
+      break;
+
     case NOTOSANS:
-      switch (lineSpacing) {
-        case TIGHT:
-          return 0.90f;
-        case NORMAL:
-        default:
-          return 0.95f;
-        case WIDE:
-          return 1.0f;
-      }
     case OPENDYSLEXIC:
-      switch (lineSpacing) {
+      switch (settings.lineSpacing) {
         case TIGHT:
-          return 0.90f;
+          settings.lineSpacingPt = 90;
+          break;
         case NORMAL:
         default:
-          return 0.95f;
+          settings.lineSpacingPt = 95;
+          break;
         case WIDE:
-          return 1.0f;
+          settings.lineSpacingPt = 100;
+          break;
       }
+      break;
   }
 }
 

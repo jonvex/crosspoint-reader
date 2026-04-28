@@ -1,0 +1,15 @@
+remake the fonts:
+1. cd lib/EpdFont/scripts 
+2. ./convert-builtin-fonts.sh 
+3. ./build-font-ids.sh 
+4. update the all.h file
+5. update src/fontIds.h with the ids from step 3
+6. update main.cpp
+
+
+rebuild the i18n strings:
+python3 scripts/gen_i18n.py lib/I18n/translations lib/I18n/
+
+
+release build:
+pio run -e gh_release -t upload

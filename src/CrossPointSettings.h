@@ -105,6 +105,8 @@ class CrossPointSettings {
   static constexpr uint8_t BUILTIN_FONT_COUNT = FONT_FAMILY_COUNT;
   // Font size options
   enum FONT_SIZE { SMALL = 0, MEDIUM = 1, LARGE = 2, EXTRA_LARGE = 3, FONT_SIZE_COUNT };
+
+  // Legacy config
   enum LINE_COMPRESSION { TIGHT = 0, NORMAL = 1, WIDE = 2, LINE_COMPRESSION_COUNT };
   enum PARAGRAPH_ALIGNMENT {
     JUSTIFIED = 0,
@@ -221,7 +223,9 @@ class CrossPointSettings {
   // Reader font settings
   uint8_t fontFamily = NOTOSERIF;
   uint8_t fontSize = MEDIUM;
+  // lineSpacing retained for migration only. lineSpacingPt is used now.
   uint8_t lineSpacing = NORMAL;
+  uint8_t lineSpacingPt = 100;
   uint8_t paragraphAlignment = JUSTIFIED;
   // Auto-sleep timeout setting (default 10 minutes). Legacy sleepTimeout enum values are migration-only.
   uint8_t sleepTimeoutMinutes = 10;
@@ -304,6 +308,7 @@ class CrossPointSettings {
 
  public:
   float getReaderLineCompression() const;
+  static void applyLegacyConvertLineCompression(CrossPointSettings& settings);
   unsigned long getSleepTimeoutMs() const;
   int getRefreshFrequency() const;
 };

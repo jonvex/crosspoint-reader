@@ -13,3 +13,12 @@ python3 scripts/gen_i18n.py lib/I18n/translations lib/I18n/
 
 release build:
 pio run -e gh_release -t upload
+
+
+edit a commit on my personal branch:
+1. git rebase -i COMMIT_HASH^
+2. change the word to edit in the file for the commit and save
+3. make changes
+4. git add changes
+5. git commit --amend
+6. git rebase --continue
